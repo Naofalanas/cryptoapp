@@ -51,7 +51,15 @@ import {
 } from "@ionic/vue";
 import { ref, onMounted } from "vue";
 
-const coins = ref([]);
+interface Coin {
+  id: string;
+  rank: string;
+  symbol: string;
+  name: string;
+  price_usd: string;
+}
+
+const coins = ref<Coin[]>([]);
 const loading = ref(false);
 
 const loadCryptoData = async () => {
@@ -59,6 +67,7 @@ const loadCryptoData = async () => {
   try {
     const response = await fetch("https://api.coinlore.net/api/tickers/");
     const json = await response.json();
+
     coins.value = json.data;
     console.log("Data loaded!", coins.value);
   } catch (error) {
@@ -114,7 +123,7 @@ ion-label h2 {
 .price-tag h3 {
   font-size: 16px;
   font-weight: bold;
-  color: blue;
+  color: #2657eb;
   margin: 0;
 }
 
